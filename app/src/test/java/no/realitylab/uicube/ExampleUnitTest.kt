@@ -1,4 +1,4 @@
-package no.realitylab.arbox
+package no.realitylab.uicube
 
 import org.junit.Test
 

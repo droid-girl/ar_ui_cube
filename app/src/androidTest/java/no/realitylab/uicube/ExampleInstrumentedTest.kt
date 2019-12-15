@@ -1,4 +1,4 @@
-package no.realitylab.arbox
+package no.realitylab.uicube
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("no.realitylab.arbox", appContext.packageName)
+        assertEquals("no.realitylab.uicube", appContext.packageName)
     }
 }
