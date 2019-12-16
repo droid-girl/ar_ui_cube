@@ -1,6 +1,7 @@
 package no.realitylab.uicube
 
 import android.content.Context
+import android.graphics.Color
 import android.view.MotionEvent
 import android.widget.TextView
 import com.google.ar.sceneform.FrameTime
@@ -8,8 +9,7 @@ import com.google.ar.sceneform.HitTestResult
 import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
-import com.google.ar.sceneform.rendering.Renderable
-import com.google.ar.sceneform.rendering.ViewRenderable
+import com.google.ar.sceneform.rendering.*
 import com.google.ar.sceneform.ux.TransformableNode
 import com.google.ar.sceneform.ux.TransformationSystem
 
@@ -17,7 +17,6 @@ import com.google.ar.sceneform.ux.TransformationSystem
 class UiCubeRenderable(
     context: Context,
     transformationSystem: TransformationSystem,
-    cube: Renderable,
     text: String,
     size: Float,
     private var billboarding: Boolean
@@ -26,6 +25,18 @@ class UiCubeRenderable(
     private var uiElement = Node()
 
     init {
+
+        MaterialFactory.makeOpaqueWithColor(context, Color(Color.LTGRAY))
+            .thenAccept { material: Material? ->
+                renderable =
+                    ShapeFactory.makeCube(Vector3(size, size, size),
+                        Vector3(0.0f, size / 2.0f, 0.0f), material)
+            }
+            .exceptionally {
+                println("Could not create a cube")
+                return@exceptionally null
+            }
+
         uiElement.setParent(this)
         uiElement.isEnabled = true
         uiElement.localPosition = Vector3(0.0f, size, 0.0f)
@@ -47,7 +58,6 @@ class UiCubeRenderable(
                 )
             }
 
-        renderable = cube
         setOnTapListener(this)
     }
 
